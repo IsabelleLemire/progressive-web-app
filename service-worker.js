@@ -1,11 +1,11 @@
 //Update cache names any time any of the cached files change.
-const CACHE_NAME = 'static-cache-v12';
+const CACHE_NAME = 'static-cache-v13';
 console.log('coucou');
 
 //Add list of files to cache here.
 const FILES_TO_CACHE = [
-    '/progressive-web-app/index.html',
-    '/progressive-web-app/offline.html'
+    'index.html',
+    'offline.html'
 ];
 
 self.addEventListener('install', (evt) => {
@@ -49,7 +49,7 @@ self.addEventListener('fetch', (evt) => {
         .catch(() => {
             return caches.open(CACHE_NAME)
                 .then((cache) => {
-            return cache.match('/progressive-web-app/offline . h t m l ' ) ;
+            return cache.match('offline . h t m l ' ) ;
             });
         })
     );
