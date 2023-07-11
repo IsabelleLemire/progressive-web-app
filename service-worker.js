@@ -3,8 +3,8 @@ const CACHE_NAME = 'static-cache-v3';
 
 //Add list of files to cache here.
 const FILES_TO_CACHE = [
-    'index.html',
-    'offline.html'
+    '/progressive-web-app/index.html',
+    '/progressive-web-app/offline.html'
 ];
 
 self.addEventListener('install', (evt) => {
