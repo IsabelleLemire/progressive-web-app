@@ -1,5 +1,5 @@
 //Update cache names any time any of the cached files change.
-const CACHE_NAME = 'static-cache-v14';
+const CACHE_NAME = 'static-cache-v15';
 console.log('coucou');
 
 //Add list of files to cache here.
