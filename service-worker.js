@@ -1,5 +1,5 @@
 //Update cache names any time any of the cached files change.
-const CACHE_NAME = 'static-cache-v11';
+const CACHE_NAME = 'static-cache-v12';
 console.log('coucou');
 
 //Add list of files to cache here.
@@ -49,7 +49,7 @@ self.addEventListener('fetch', (evt) => {
         .catch(() => {
             return caches.open(CACHE_NAME)
                 .then((cache) => {
-            return cache.match('progressive-web-app/offline . h t m l ' ) ;
+            return cache.match('/progressive-web-app/offline . h t m l ' ) ;
             });
         })
     );
