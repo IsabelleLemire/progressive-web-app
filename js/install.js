@@ -1,29 +1,39 @@
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-    // Prevent the default browser install prompt
-    e.preventDefault();
-    // Store the event for later use
-    deferredPrompt = e;
-    // Show your custom install button
-    const installButton = document.getElementById('butInstall');
-    installButton.removeAttribute('hidden');
-});
-
+let deferredInstallPrompt = null;
 const installButton = document.getElementById('butInstall');
-installButton.addEventListener('click', () => {
-    if (deferredPrompt) {
-        // Show the browser install prompt
-        deferredPrompt.prompt();
-        // Wait for the user to respond to the prompt
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
+installButton.addEventListener('click', installPWA);
+
+// Add event listener for beforeinstallprompt event
+window.addEventListener('beforeinstallprompt', saveBeforeInstallPromptEvent);
+
+function saveBeforeInstallPromptEvent(evt) {
+// Add code to save event & show the install button
+    deferredInstallPrompt = evt;
+    installButton.removeAttribute('hidden');
+}
+
+function installPWA(evt) {
+    // Add code show install prompt & hide the install button.
+    // Log user response to prompt.
+    deferredInstallPrompt.prompt();
+    // hide the install installButton, it can't be called twice.
+    evt.srcElement.setAttribute('hidden', true);
+
+    // log user response to prompt.
+    deferredInstallPrompt.userChoice
+        .then((choice) => {
+            if (choice.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt', choice);
             } else {
-                console.log('User dismissed the install prompt');
+                console.log('User dismissed the A2HS prompt', choice);
             }
-            // Reset the deferred prompt variable
-            deferredPrompt = null;
+            deferredInstallPrompt = null;
         });
-    }
-});
+}
+
+// Add event listener for appinstalled event
+window.addEventListener('appinstalled', logAppInstalled);
+
+function logAppInstalled(evt) {
+    // Add code to log the event
+    console.log('Wheather App was installed', evt);
+}
